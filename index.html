@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" async></script>
+<title>Script de Formalización — Banamex</title>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow sans">Banamex · Tarjeta de Crédito</div>
+  <h1>Script de Formalización</h1>
+  <p class="sub">Guía de llamada para la activación y entrega de tarjeta. Sigue el flujo de la conversación según las respuestas del cliente.</p>
+  <div class="tel">📞 Atención a clientes: 55 1226 2639</div>
+</header>
+
+<nav class="tabs sans">
+  <button class="active" data-view="flujo">Flujo de llamada</button>
+  <button data-view="documentos">Documentación requerida</button>
+  <button data-view="beneficio">Beneficio 2x1</button>
+  <button data-view="calificaciones">Calificaciones</button>
+</nav>
+
+<main>
+
+  <!-- ===================== FLUJO ===================== -->
+  <section class="view active" id="flujo">
+    <h2 class="section-title">Conversación guiada</h2>
+    <h3 class="headline">Sigue cada paso del guion</h3>
+
+    <div class="progress" id="progressBar"></div>
+
+    <div class="stage" id="stage"></div>
+  </section>
+
+  <!-- ===================== DOCUMENTOS ===================== -->
+  <section class="view" id="documentos">
+    <h2 class="section-title">Antes de la cita</h2>
+    <h3 class="headline">Documentación requerida</h3>
+    <div class="card" style="max-width:520px;">
+      <h4>Llevar a sucursal</h4>
+      <ul class="doclist">
+        <li>INE <mark>(Vigente)</mark></li>
+        <li>Comprobante de domicilio <mark>(no mayor a 3 meses)</mark></li>
+        <li>3 estados de cuenta o 1 recibo de nómina <mark>(débito, cheques o inversiones)</mark></li>
+        <li>Número de folio</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== BENEFICIO ===================== -->
+  <section class="view" id="beneficio">
+    <h2 class="section-title">Incentivo para el cliente</h2>
+    <h3 class="headline">Beneficio 2x1 en Cinépolis</h3>
+    <div class="benefit-box">
+      <h4>Banamex le está dando un beneficio por la entrega de su plástico</h4>
+      <p class="sans" style="font-size:15px; opacity:.92;">Consiste en un 2x1 en boletos Cinépolis. Aplica para todos los días de la semana y las veces que el cliente quiera ir.</p>
+      <div class="promo">W4BE26UE25WD44Z6</div>
+    </div>
+  </section>
+
+  <!-- ===================== CALIFICACIONES ===================== -->
+  <section class="view" id="calificaciones">
+    <h2 class="section-title">Cierre de gestión</h2>
+    <h3 class="headline">Calificaciones de formalización</h3>
+    <table class="calif">
+      <tr><th>Calificación</th><th>Significado</th><th>Ejemplo</th></tr>
+      <tr><td class="code-badge">NC</td><td>No contesta</td><td>NC 20/09</td></tr>
+      <tr><td class="code-badge">RCG</td><td>Cita</td><td>RCG 15/09 - 20/09</td></tr>
+      <tr><td class="code-badge">LB</td><td>Cliente difícil</td><td>LB (no quiere la TDC) 20/09</td></tr>
+      <tr><td class="code-badge">COLGO</td><td>Colgó</td><td>COLGO 20/09</td></tr>
+      <tr><td class="code-badge">ED</td><td>Entregada</td><td>ED 20/09 (FALTA LIM) 20/09</td></tr>
+      <tr><td class="code-badge">FS</td><td>Fuera de servicio</td><td>FS 20/09</td></tr>
+      <tr><td class="code-badge">NQ</td><td>N° equivocado</td><td>NQ 20/09</td></tr>
+      <tr><td class="code-badge">SD</td><td>Sin documentos</td><td>SD (perdió el INE) 20/09</td></tr>
+    </table>
+  </section>
+
+</main>
+
+
+</body>
+</html>
