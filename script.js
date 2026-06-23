@@ -16,7 +16,7 @@ document.querySelectorAll("nav.tabs button").forEach((btn) => {
 // Each node: text (agent line), note (optional reminder), choices[] -> {label,class,next}
 const flow = {
   start: {
-    line: "BUENOS DÍAS SR@ _____________ LE LLAMO DE BANAMEX PARA DARLE LA BIENVENIDA A NUESTRO BANCO CON UN BENEFICIO ESPECIAL POR ACTIVAR SU CUENTA, SOLO UNA PREGUNTA ¿YA LE ENTREGAMOS SU TARJETA?",
+    line: "Buenos días, señor/a _____________ le llamo de Banamex para darle la bienvenida a nuestro banco con un beneficio especial por activar su cuenta. Solo una pregunta: ¿ya le entregamos su tarjeta?",
     choices: [
       { label: "Sí", cls: "si", next: "fechaEntrega" },
       { label: "No", cls: "no", next: "noTarjeta" },
@@ -25,28 +25,33 @@ const flow = {
   },
   fechaEntrega: {
     line: "¿Qué día recogió su tarjeta?",
-    choices: [{ label: "Continuar", cls: "next", next: "limiteCredito" }],
+    choices: [{ label: "Continuar", cls: "next", next: "dudaTarjeta" }],
     step: 2,
   },
   limiteCredito: {
-    line: "¿Ya le entregamos su límite de crédito?",
+    line: "Excelente y ¿Ya le entregamos su límite de crédito? o quedo pendiente el dato?",
     choices: [
-      { label: "Sí", cls: "si", next: "dudaTarjeta" },
-      { label: "No", cls: "no", next: "noQuedoDuda" },
+      { label: "Sí", cls: "si", next: "noQuedoDuda" },
+      { label: "No", cls: "no", next: "limiteCreditoNo" },
     ],
     step: 3,
+  },
+  limiteCreditoNo: {
+    line: "Entiendo. El límite de crédito normalmente se libera entre 24 y 72 horas después de la entrega, por lo que puede tardar un poco en quedar disponible.",
+    choices: [{ label: "Continuar", cls: "next", next: "noQuedoDuda" }],
+    step: 4,
   },
   dudaTarjeta: {
     line: "¿Le quedó alguna duda sobre su tarjeta?",
     choices: [
       { label: "Sí", cls: "si", next: "resolverDudas" },
-      { label: "No", cls: "no", next: "noQuedoDuda" },
+      { label: "No", cls: "no", next: "limiteCredito" },
     ],
     step: 4,
   },
   resolverDudas: {
-    line: "Entiendo. Voy a aclarar su duda con una explicación breve y, si aplica, también le recuerdo los documentos necesarios para su visita.",
-    choices: [{ label: "Continuar", cls: "next", next: "confirmarDocumentos" }],
+    line: "Entiendo. ¿Cuál es su duda? (Resolver la duda del cliente)",
+    choices: [{ label: "Continuar", cls: "next", next: "noQuedoDuda" }],
     step: 4,
   },
   confirmarDocumentos: {
@@ -54,7 +59,7 @@ const flow = {
     choices: [
       { label: "Recordar documentos", cls: "next", next: "recordarDocumentos" },
       { label: "No trae documentos hoy", cls: "next", next: "sinDocumentosHoy" },
-      { label: "Continuar", cls: "next", next: "recomendacionApp" },
+      { label: "Continuar", cls: "next", next: "noQuedoDuda" },
     ],
     step: 5,
   },
@@ -67,12 +72,12 @@ const flow = {
     step: 5,
   },
   noQuedoDuda: {
-    line: "Perfecto, entonces no hay problema. Continuamos con el siguiente paso del proceso.",
-    choices: [{ label: "Continuar", cls: "next", next: "recomendacionApp" }],
-    step: 4,
+    line: "Perfecto, dejo el comentario. Muchas gracias por su tiempo y que tenga un excelente día.",
+    choices: [{ label: "Finalizar llamada", cls: "next", next: "end" }],
+    step: 7,
   },
   noTarjeta: {
-    line: "ENTIENDO, PARA LA ACTIVACIÓN DE SU BENEFICIO ES NECESARIO ENTREGARLE SU TARJETA, ¿CREE QUE PUEDA IR EL DÍA DE HOY?",
+    line: "Entiendo, para la activación de su beneficio es necesario entregarle su tarjeta. ¿cree que pueda ir el día de hoy?",
     choices: [
       { label: "Sí", cls: "si", next: "sucursalMente" },
       { label: "No", cls: "no", next: "agendarVisita" },
@@ -89,7 +94,7 @@ const flow = {
     step: 3,
   },
   buscarSucursal: {
-    line: "(Buscar sucursal cercana al cliente)",
+    line: "Buscar sucursal cercana al cliente",
     isAction: true,
     choices: [
       {
@@ -110,17 +115,17 @@ const flow = {
         label: "Ver documentación",
         cls: "next",
         view: "documentos",
-        next: "recomendacionApp",
+        next: "noQuedoDuda",
       },
       { label: "No trae documentos hoy", cls: "next", next: "sinDocumentosHoy" },
-      { label: "Continuar", cls: "next", next: "recomendacionApp" },
+      { label: "Continuar", cls: "next", next: "noQuedoDuda" },
     ],
     step: 5,
   },
   agendarVisita: {
     line: "(Agendar visita el día más cercano a hoy)",
     isAction: true,
-    choices: [{ label: "Continuar", cls: "next", next: "recomendacionApp" }],
+    choices: [{ label: "Continuar", cls: "next", next: "recordarDocumentos" }],
     step: 3,
   },
   recomendacionApp: {
